@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <script src="./js/snake.js"></script>
+    <script src="./js/snake-view.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="./css/snake.css">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <div id="board">
+      </div>
+    </div>
+    <script charset="utf-8">
+      var $board = $('#board');
+      var view = new Game.View($board);
+      var int = 100;
+      window.gameInterval = setInterval(function() {
+        view.board.move();
+        view.render();
+      }, int);
+    </script>
+  </body>
+</html>
