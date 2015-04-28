@@ -7,11 +7,11 @@
     this.xSize = size[0];
     this.ySize = size[1];
     this.endCallback = endCallback;
-    this.snake = new Game.Snake(this.randomPos());
-    this.apple = this.randomApple();
   };
 
   Board.prototype.startGame = function(int) {
+    this.snake = new Game.Snake(this.randomPos());
+    this.apple = this.randomApple();
     window.gameInterval = setInterval(function() {
       view.board.move();
       view.render();

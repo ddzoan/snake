@@ -6,11 +6,12 @@
   var View = Game.View = function($board, $menu) {
     this.size = [30, 30];
     this.$grid = $board;
+    this.board = new Game.Board(this.size, this.endGame.bind(this));
+    this.setupBoard(this.size);
     this.$menu = $menu;
   };
 
   View.prototype.showMenu = function() {
-    this.$menu.append("<div>Instructions</div>");
     this.$menu.append('<div class="start">click to start</div>');
     this.$menu.find('.start').one("click", function(){
       this.startGame();
@@ -23,8 +24,6 @@
 
   View.prototype.startGame = function() {
     this.removeMenu();
-    this.board = new Game.Board(this.size, this.endGame.bind(this));
-    this.setupBoard(this.size);
     this.eventListener();
     var int = 100;
     this.board.startGame(int);
