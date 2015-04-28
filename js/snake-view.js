@@ -3,25 +3,36 @@
     window.Game = {};
   }
 
-  var View = Game.View = function($el) {
+  var View = Game.View = function($board, $menu) {
     this.size = [30, 30];
-    this.$grid = $el;
+    this.$grid = $board;
+    this.$menu = $menu;
   };
 
-  View.prototype.menu = function() {
-    this.$grid.append("<div>Instructions</div>");
-    this.$grid.append('<div class="start">click to start</div>');
-    this.$grid.find('.start').one("click", function(){
+  View.prototype.showMenu = function() {
+    this.$menu.append("<div>Instructions</div>");
+    this.$menu.append('<div class="start">click to start</div>');
+    this.$menu.find('.start').one("click", function(){
       this.startGame();
     }.bind(this));
   };
 
+  View.prototype.removeMenu = function() {
+    this.$menu.html('');
+  };
+
   View.prototype.startGame = function() {
-    this.board = new Game.Board(this.size);
+    this.removeMenu();
+    this.board = new Game.Board(this.size, this.endGame.bind(this));
     this.setupBoard(this.size);
     this.eventListener();
     var int = 100;
     this.board.startGame(int);
+  };
+
+  View.prototype.endGame = function() {
+    console.log("game over");
+    this.showMenu();
   };
 
   View.prototype.setupBoard = function (size) {

@@ -13,11 +13,14 @@
     <div class="wrapper">
       <div id="board">
       </div>
+      <div class="menu">
+      </div>
     </div>
     <script charset="utf-8">
       var $board = $('#board');
-      var view = new Game.View($board);
-      view.menu();
+      var $menu = $('.menu');
+      var view = new Game.View($board, $menu);
+      view.showMenu();
     </script>
   </body>
 </html>

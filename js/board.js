@@ -3,9 +3,10 @@
     window.Game = {};
   }
 
-  var Board = Game.Board = function(size) {
+  var Board = Game.Board = function(size, endCallback) {
     this.xSize = size[0];
     this.ySize = size[1];
+    this.endCallback = endCallback;
     this.snake = new Game.Snake(this.randomPos());
     this.apple = this.randomApple();
   };
@@ -34,7 +35,6 @@
   Board.prototype.move = function () {
     if(this.isOver()){
       this.endGame();
-      console.log("end game");
     } else {
       if (this.samePos(this.apple, this.snake.segments[0])) {
         this.snake.grow();
@@ -47,6 +47,7 @@
 
   Board.prototype.endGame = function() {
     clearInterval(window.gameInterval);
+    this.endCallback();
   };
 
   Board.prototype.samePos = function (pos1, pos2) {
@@ -65,7 +66,7 @@
     var snakeHead = this.snake.segments[0];
     if(this.onSnakeBody(snakeHead)){
       return true;
-    } else if(snakeHead[0] < 0 || snakeHead[0] > this.xSize || snakeHead[1] < 0 || snakeHead[1] > this.ySize){
+    } else if(snakeHead[0] < 0 || snakeHead[0] >= this.xSize || snakeHead[1] < 0 || snakeHead[1] >= this.ySize){
       return true;
     }
     return false;

@@ -31,3 +31,7 @@
 .apple {
   background-color: red;
 }
+
+.menu {
+  position: absolute;
+}
