@@ -4,6 +4,7 @@
     <title></title>
     <script src="./js/snake.js"></script>
     <script src="./js/snake-view.js"></script>
+    <script src="./js/board.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link rel="stylesheet" href="./css/snake.css">
   </head>
@@ -16,11 +17,7 @@
     <script charset="utf-8">
       var $board = $('#board');
       var view = new Game.View($board);
-      var int = 100;
-      window.gameInterval = setInterval(function() {
-        view.board.move();
-        view.render();
-      }, int);
+      view.menu();
     </script>
   </body>
 </html>

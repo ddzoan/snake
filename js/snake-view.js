@@ -4,14 +4,28 @@
   }
 
   var View = Game.View = function($el) {
-    var size = [30, 30];
-    this.board = new Game.Board(size);
+    this.size = [30, 30];
     this.$grid = $el;
-    this.setupBoard(size);
+  };
+
+  View.prototype.menu = function() {
+    this.$grid.append("<div>Instructions</div>");
+    this.$grid.append('<div class="start">click to start</div>');
+    this.$grid.find('.start').one("click", function(){
+      this.startGame();
+    }.bind(this));
+  };
+
+  View.prototype.startGame = function() {
+    this.board = new Game.Board(this.size);
+    this.setupBoard(this.size);
     this.eventListener();
-  }
+    var int = 100;
+    this.board.startGame(int);
+  };
 
   View.prototype.setupBoard = function (size) {
+    this.$grid.html('');
     var x = size[0];
     var y = size[1];
 
