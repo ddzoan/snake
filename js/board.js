@@ -3,19 +3,38 @@
     window.Game = {};
   }
 
-  var Board = Game.Board = function(size, endCallback) {
-    this.xSize = size[0];
-    this.ySize = size[1];
-    this.endCallback = endCallback;
+  var Board = Game.Board = function(options) {
+    this.xSize = options.size[0];
+    this.ySize = options.size[1];
+    this.int = options.int;
+    this.endCallback = options.endCallback;
   };
 
-  Board.prototype.startGame = function(int) {
+  Board.prototype.startGame = function() {
     this.snake = new Game.Snake(this.randomPos());
     this.apple = this.randomApple();
-    window.gameInterval = setInterval(function() {
-      view.board.move();
-      view.render();
-    }, int);
+    this.toggleMove(true);
+  };
+
+  Board.prototype.toggleMove = function(start) {
+    if(this.moving === start){
+      return;
+    }
+    if(start){
+      this.moving = true;
+      var int = this.int;
+      window.gameInterval = setInterval(function() {
+        view.board.move();
+        view.render();
+      }, int);
+    } else {
+      this.moving = false;
+      clearInterval(window.gameInterval);
+    }
+  };
+
+  Board.prototype.pause = function() {
+    this.toggleMove(!this.moving);
   };
 
   Board.prototype.randomApple = function () {
@@ -46,7 +65,7 @@
   };
 
   Board.prototype.endGame = function() {
-    clearInterval(window.gameInterval);
+    this.toggleMove(false);
     this.endCallback();
   };
 

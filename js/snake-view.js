@@ -6,7 +6,12 @@
   var View = Game.View = function($board, $menu) {
     this.size = [30, 30];
     this.$grid = $board;
-    this.board = new Game.Board(this.size, this.endGame.bind(this));
+    this.int = 100;
+    this.board = new Game.Board({
+      size: this.size,
+      endCallback: this.endGame.bind(this),
+      int: this.int
+    });
     this.setupBoard(this.size);
     this.$menu = $menu;
   };
@@ -25,8 +30,7 @@
   View.prototype.startGame = function() {
     this.removeMenu();
     this.eventListener();
-    var int = 100;
-    this.board.startGame(int);
+    this.board.startGame();
   };
 
   View.prototype.endGame = function() {
@@ -82,6 +86,9 @@
         break;
       case 39:
         this.board.snake.turn('E');
+        break;
+      case 32:
+        this.board.pause();
         break;
     }
   };
